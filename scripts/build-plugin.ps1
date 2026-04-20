@@ -5,11 +5,15 @@ param(
 $root = Split-Path -Parent $PSScriptRoot
 $srcDir = Join-Path $root 'src'
 $srcBundle = Join-Path $srcDir 'lordfilm.js'
+$srcReyoBundle = Join-Path $srcDir 'reyohoho.js'
 $distBundle = Join-Path $root 'lordfilm.js'
+$distReyoBundle = Join-Path $root 'reyohoho.js'
 
 $parts = @(
   'core/utils.js',
   'core/network.js',
+  'core/reyohoho_catalog.js',
+  'providers/reyohoho.js',
   'providers/lordfilm.js',
   'providers/collaps.js',
   'providers/alloha.js',
@@ -43,7 +47,7 @@ try {
   Set-Content -Path $temp -Value ($content -join [Environment]::NewLine) -NoNewline
 
   if ($CheckOnly) {
-    if (-not (Test-Path $srcBundle) -or -not (Test-Path $distBundle)) {
+    if (-not (Test-Path $srcBundle) -or -not (Test-Path $distBundle) -or -not (Test-Path $srcReyoBundle) -or -not (Test-Path $distReyoBundle)) {
       Write-Error 'Bundle files are missing'
       exit 1
     }
@@ -51,8 +55,10 @@ try {
     $tmpHash = (Get-FileHash -Algorithm SHA256 $temp).Hash
     $srcHash = (Get-FileHash -Algorithm SHA256 $srcBundle).Hash
     $distHash = (Get-FileHash -Algorithm SHA256 $distBundle).Hash
+    $srcReyoHash = (Get-FileHash -Algorithm SHA256 $srcReyoBundle).Hash
+    $distReyoHash = (Get-FileHash -Algorithm SHA256 $distReyoBundle).Hash
 
-    if ($tmpHash -ne $srcHash -or $tmpHash -ne $distHash) {
+    if ($tmpHash -ne $srcHash -or $tmpHash -ne $distHash -or $tmpHash -ne $srcReyoHash -or $tmpHash -ne $distReyoHash) {
       Write-Error 'Bundle is out of date. Run scripts/build-plugin.ps1'
       exit 1
     }
@@ -62,8 +68,10 @@ try {
   }
 
   Copy-Item -Force $temp $srcBundle
+  Copy-Item -Force $temp $srcReyoBundle
   Copy-Item -Force $temp $distBundle
-  Write-Output 'Bundled: src/* -> src/lordfilm.js + lordfilm.js'
+  Copy-Item -Force $temp $distReyoBundle
+  Write-Output 'Bundled: src/* -> src/lordfilm.js + lordfilm.js + src/reyohoho.js + reyohoho.js'
 }
 finally {
   if (Test-Path $temp) { Remove-Item -Force $temp }

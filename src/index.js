@@ -1,12 +1,12 @@
 (function(){
 'use strict';
 
-if (window.lordfilm_plugin_ready) return;
-window.lordfilm_plugin_ready = true;
+if (window.reyohoho_plugin_ready) return;
+window.reyohoho_plugin_ready = true;
 
 var mod = window.__LORDFILM_AGG__ || {};
 if (!mod.shared || !mod.network || !mod.core || !mod.core.providers) {
-  console.error('[LordfilmAggregator] modules are not loaded');
+  console.error('[ReYohohoAggregator] modules are not loaded');
   return;
 }
 
@@ -14,6 +14,9 @@ var shared = mod.shared;
 var network = mod.network;
 var providerCore = mod.core.providers;
 
+var COMPONENT_NAME = 'reyohoho_aggregator';
+var PLUGIN_NAME = 'ReYohoho Aggregator';
+var BUTTON_LABEL = 'ReYohoho+';
 var BTN_CLASS = 'lordfilm-aggregator-start-btn';
 var TEMPLATE_NAME = 'lordfilm_aggregator_item';
 
@@ -69,7 +72,7 @@ function timelineDetailsString(timeline){
 
 function entryHash(meta, item){
   return shared.hash([
-    'lordfilm_aggregator',
+    'reyohoho_aggregator',
     meta.id || meta.imdb_id || meta.kinopoisk_id || shared.norm(meta.title || meta.original_title || ''),
     item.provider || 'unknown',
     item.season || 0,
@@ -396,11 +399,11 @@ function makeComponent(object){
 }
 
 function openFromCard(movie){
-  Lampa.Component.add('lordfilm_aggregator', makeComponent);
+  Lampa.Component.add(COMPONENT_NAME, makeComponent);
   Lampa.Activity.push({
     url: '',
-    title: 'Lordfilm Aggregator',
-    component: 'lordfilm_aggregator',
+    title: PLUGIN_NAME,
+    component: COMPONENT_NAME,
     search: (movie && movie.title) || '',
     search_one: (movie && movie.title) || '',
     search_two: (movie && movie.original_title) || '',
@@ -414,7 +417,7 @@ function appendSourceButton(root, movie){
   if (root.find('.' + BTN_CLASS).length) return;
 
   var icon = '<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><circle cx="64" cy="64" r="56" stroke="currentColor" stroke-width="12" fill="none"/><path d="M88 64L48 88V40z" fill="currentColor"/></svg>';
-  var button = $('<div class="full-start__button selector ' + BTN_CLASS + '" data-subtitle="Lordfilm Aggregator ' + shared.VERSION + '">' + icon + '<span>LordFilm+</span></div>');
+  var button = $('<div class="full-start__button selector ' + BTN_CLASS + '" data-subtitle="' + PLUGIN_NAME + ' ' + shared.VERSION + '">' + icon + '<span>' + BUTTON_LABEL + '</span></div>');
   button.on('hover:enter', function(){ openFromCard(movie || {}); });
 
   var target = root.find('.buttons--container .view--torrent');
@@ -440,8 +443,8 @@ function addSourceButtonWatcher(){
 }
 
 function registerSettings(){
-  if (window.lordfilm_aggregator_settings_ready) return;
-  window.lordfilm_aggregator_settings_ready = true;
+  if (window.reyohoho_aggregator_settings_ready) return;
+  window.reyohoho_aggregator_settings_ready = true;
 
   if (!Lampa.SettingsApi || !Lampa.SettingsApi.addParam) return;
 
@@ -464,7 +467,7 @@ function registerSettings(){
         "default": provider.enabled ? 'true' : 'false'
       },
       field: {
-        name: 'Lordfilm Aggregator: ' + provider.title
+        name: PLUGIN_NAME + ': ' + provider.title
       },
       onChange: function(value){
         shared.sset(key, String(value));
@@ -484,7 +487,7 @@ function registerSettings(){
       "default": 'false'
     },
     field: {
-      name: 'Lordfilm Aggregator: Debug mode'
+      name: PLUGIN_NAME + ': Debug mode'
     },
     onChange: function(value){
       shared.sset(shared.STORAGE.debug, String(value));
@@ -493,20 +496,20 @@ function registerSettings(){
 }
 
 function init(){
-  if (window.lordfilm_plugin_inited) return;
+  if (window.reyohoho_plugin_inited) return;
   ensureStyles();
   registerSettings();
-  Lampa.Component.add('lordfilm_aggregator', makeComponent);
+  Lampa.Component.add(COMPONENT_NAME, makeComponent);
 
   Lampa.Manifest.plugins = {
     type: 'video',
     version: shared.VERSION,
-    name: 'Lordfilm Aggregator - ' + shared.VERSION,
-    description: 'LordFilm + Online Balancers',
-    component: 'lordfilm_aggregator',
+    name: PLUGIN_NAME + ' - ' + shared.VERSION,
+    description: 'ReYohoho + online balancers',
+    component: COMPONENT_NAME,
     onContextMenu: function(){
       return {
-        name: '\u0421\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0447\u0435\u0440\u0435\u0437 Lordfilm Aggregator',
+        name: '\u0421\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0447\u0435\u0440\u0435\u0437 ' + PLUGIN_NAME,
         description: ''
       };
     },
@@ -516,17 +519,17 @@ function init(){
   };
 
   addSourceButtonWatcher();
-  window.lordfilm_plugin_inited = true;
+  window.reyohoho_plugin_inited = true;
   shared.log('initialized', shared.VERSION);
 }
 
 function bootstrap(){
-  if (window.lordfilm_plugin_bootstrapped) return;
-  window.lordfilm_plugin_bootstrapped = true;
+  if (window.reyohoho_plugin_bootstrapped) return;
+  window.reyohoho_plugin_bootstrapped = true;
 
   var start = function(){
     try { init(); }
-    catch (e) { console.error('[LordfilmAggregator] init error', e); }
+    catch (e) { console.error('[ReYohohoAggregator] init error', e); }
   };
 
   if (window.appready) start();

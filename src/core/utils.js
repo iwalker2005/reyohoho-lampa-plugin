@@ -1,7 +1,7 @@
 (function(mod){
 'use strict';
 
-var VERSION = '2.0.0';
+var VERSION = '2.1.0';
 var STORAGE = {
   proxyUrl: 'lordfilm_proxy_url',
   proxyToken: 'lordfilm_proxy_token',
@@ -27,6 +27,7 @@ var DEFAULTS = {
 };
 
 var PROVIDERS = [
+  { key: 'reyohoho', title: 'ReYohoho', enabled: true },
   { key: 'lordfilm', title: 'LordFilm', enabled: true },
   { key: 'collaps', title: 'Collaps', enabled: true },
   { key: 'alloha', title: 'Alloha', enabled: true },
@@ -293,7 +294,7 @@ function log(){
   if (!cfg.debug) return;
   try {
     var args = Array.prototype.slice.call(arguments);
-    args.unshift('[LordfilmAggregator]');
+    args.unshift('[ReYohohoAggregator]');
     console.log.apply(console, args);
   } catch (e) {}
 }

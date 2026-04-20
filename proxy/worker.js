@@ -1,6 +1,6 @@
-const VERSION = '2.0.0';
+const VERSION = '2.1.0';
 
-const PLUGIN_SOURCE_URL = 'https://raw.githubusercontent.com/iwalker2005/lampa-lordfilm-plugin/main/lordfilm.js';
+const PLUGIN_SOURCE_URL = 'https://raw.githubusercontent.com/iwalker2005/lampa-lordfilm-plugin/main/reyohoho.js';
 
 const DEFAULT_ALLOWED_HOSTS = [
   'lordfilm-2026.org',
@@ -17,7 +17,28 @@ const DEFAULT_ALLOWED_HOSTS = [
   '*.lordfilm.ru',
   'plapi.cdnvideohub.com',
   'player.cdnvideohub.com',
+  'kinobd.net',
+  '*.kbd.so',
+  'api.kinobox.tv',
+  'tapeop.dev',
   'api.namy.ws',
+  'api.zenithjs.ws',
+  '*.videoframe2.com',
+  '*.flixcdn.space',
+  '*.obrut.show',
+  'kinovibe.cc',
+  '*.kvb.cool',
+  'ashdi.vip',
+  '*.fotpro135alto.com',
+  'api.videoseed.tv',
+  'vibix.org',
+  'portal.lumex.host',
+  'api.lumex.space',
+  'p.lumex.space',
+  'kvk.zone',
+  'redheadsound.studio',
+  'anilib.me',
+  'api2.mangalib.me',
   'api.kinogram.best',
   'api.apbugall.org',
   'kodikapi.com',
@@ -38,6 +59,12 @@ const DEFAULT_VIDEO_HOSTS = [
   '*.vkuser.net',
   '*.interkh.com',
   '*.stloadi.live',
+  '*.flixcdn.space',
+  '*.videoseed.tv',
+  '*.kinovibe.cc',
+  '*.kvb.cool',
+  'ashdi.vip',
+  '*.fotpro135alto.com',
   '*.kodik.info',
   '*.kodik.biz',
   '*.kodikapi.com',
