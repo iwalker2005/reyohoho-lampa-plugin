@@ -3031,7 +3031,8 @@ function ensureStyles(){
     document.head.appendChild(style);
   }
 
-  if (!Lampa.Template.get(TEMPLATE_NAME, {}, true)) {
+  var templates = Lampa.Template.all ? Lampa.Template.all() : null;
+  if (!templates || !templates[TEMPLATE_NAME]) {
     Lampa.Template.add(TEMPLATE_NAME, '<div class="lordfilm-agg-item selector {error_class}"><div class="lordfilm-agg-item__title">{title}</div><div class="lordfilm-agg-item__meta">{meta}</div><div class="lordfilm-agg-item__badge">{badge}</div></div>');
   }
 }
